@@ -5,6 +5,8 @@ import org.example.model.Car;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class CarService implements ICarService{
     private CarRepository repo = new CarRepository();
@@ -18,21 +20,35 @@ public class CarService implements ICarService{
 
     @Override
     public void showCarsOrderedByBrandAndPrice() {
-
+        repo.findAll().stream()
+                .sorted(Comparator.comparing(Car::getBrand).thenComparing(Car::getPrice))
+                .forEach(System.out::println);
     }
 
     @Override
     public List<Car> getCarsBelowPrice(double maxPrice) {
-        return List.of();
+        List<Car> cars = repo.findAll().stream()
+                .filter(car -> car.getPrice() < maxPrice)
+                .collect(Collectors.toList());
+
+        return cars;
     }
 
     @Override
     public List<Car> filterCarsByBrand(List<String> brands) {
-        return List.of();
+        List<Car> cars = repo.findAll().stream()
+                .filter(car -> brands.contains(car.getBrand()))
+                .collect(Collectors.toList());
+
+        return cars;
     }
 
     @Override
     public void showModelsWithLetterA() {
-
+        repo.findAll().stream()
+                .filter(car -> {
+                    return car.getModel().toLowerCase().contains("a");
+                })
+                .forEach(System.out::println);
     }
 }
