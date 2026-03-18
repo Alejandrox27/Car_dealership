@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class CarRepository {
-    private List<Car> carDatabase;
+    final private List<Car> carDatabase;
 
     public CarRepository () {
         this.carDatabase = new ArrayList<>();

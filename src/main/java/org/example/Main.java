@@ -31,6 +31,7 @@ public class Main {
             int option;
             try {
                 option = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (option) {
                     case 1:
@@ -44,11 +45,15 @@ public class Main {
                         break;
                     case 3:
                         System.out.printf("Insert a max range of price:%n>> ");
-                        double price = 0;
+                        double price;
                         try {
                             price = scanner.nextDouble();
+                            scanner.nextLine();
                         } catch (InputMismatchException e) {
-                            System.out.println(e.getMessage());
+                            System.out.println("Error: Please enter a valid number (e.g., 25000.50)");
+                            scanner.nextLine();
+                            continueList();
+                            break;
                         }
 
                         if (price <= 0) {
@@ -56,35 +61,42 @@ public class Main {
                             break;
                         }
 
-                        service.getCarsBelowPrice(price);
+                        System.out.println(service.getCarsBelowPrice(price));
                         continueList();
 
                         break;
                     case 4:
                         System.out.printf("Write the brands you want to see with commas:%n>> ");
-                        String brands = "";
+                        String brands;
                         try {
                             brands = scanner.nextLine();
                         } catch (InputMismatchException e) {
-                            System.out.println(e.getMessage());
+                            System.out.println("Please write the brands you want to see separated by commas");
+                            scanner.nextLine();
+                            continueList();
+                            break;
                         }
 
                         List<String> brandsList = new ArrayList<>(Arrays.asList(brands.split(",")));
 
-                        service.filterCarsByBrand(brandsList);
+                        System.out.println(service.filterCarsByBrand(brandsList));
                         continueList();
 
                         break;
                     case 5:
                         System.out.printf("Choose a letter or model to search in models:%n>> ");
-                        String search = "";
+                        String search;
                         try {
                           search = scanner.nextLine();
+                          scanner.nextLine();
                         } catch (InputMismatchException e) {
-                            System.out.println(e.getMessage());
+                            System.out.println("Please write a letter or a model you want to search");
+                            scanner.nextLine();
+                            continueList();
+                            break;
                         }
 
-                        service.showModelsWithLetter(search);
+                        System.out.println(service.showModelsWithLetter(search));
                         continueList();
 
                         break;
@@ -96,7 +108,8 @@ public class Main {
 
                 }
             } catch (InputMismatchException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Please insert a valid option between 1 and 6");
+                continueList();
             }
 
 
