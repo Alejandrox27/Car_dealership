@@ -44,11 +44,11 @@ public class CarService implements ICarService{
     }
 
     @Override
-    public void showModelsWithLetterA() {
-        repo.findAll().stream()
-                .filter(car -> {
-                    return car.getModel().toLowerCase().contains("a");
-                })
-                .forEach(System.out::println);
+    public List<Car> showModelsWithLetter(String letter) {
+        List<Car> cars = repo.findAll().stream()
+                .filter(car -> car.getModel().toLowerCase().contains(letter))
+                .collect(Collectors.toList());
+
+        return cars;
     }
 }

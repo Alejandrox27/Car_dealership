@@ -7,5 +7,5 @@ public interface ICarService {
     void showCarsOrderedByBrandAndPrice();
     List<Car> getCarsBelowPrice(double maxPrice);
     List<Car> filterCarsByBrand(List<String> brands);
-    void showModelsWithLetterA();
+    List<Car> showModelsWithLetter(String letter);
 }
