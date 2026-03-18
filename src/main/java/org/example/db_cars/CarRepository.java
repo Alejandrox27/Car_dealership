@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class CarRepository {
     private List<Car> carDatabase;
 
-    public void carRepository () {
+    public CarRepository () {
         this.carDatabase = new ArrayList<>();
         loadInitialData();
     }
