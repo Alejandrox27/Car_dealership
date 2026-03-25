@@ -11,16 +11,27 @@ import java.util.stream.Collectors;
 public class CarService implements ICarService{
     private final connection repo = new connection();
 
+    private List<Car> internalList;
+
+    public CarService () {
+        this.internalList = repo.findAll();
+    }
+
+    public void refreshData () {
+        // refresh data if something changes in the database
+        this.internalList = repo.findAll();
+    }
+
     @Override
     public void showCarsOrderedByPrice() {
-        repo.findAll().stream()
+        internalList.stream()
                 .sorted(Comparator.comparing(Car::getPrice))
                 .forEach(System.out::println);
     }
 
     @Override
     public void showCarsOrderedByBrandAndPrice() {
-        repo.findAll().stream()
+        internalList.stream()
                 .sorted(Comparator.comparing(Car::getBrand).thenComparing(Car::getPrice))
                 .forEach(System.out::println);
     }
@@ -28,7 +39,7 @@ public class CarService implements ICarService{
     @Override
     public List<Car> getCarsBelowPrice(double maxPrice) {
 
-        return repo.findAll().stream()
+        return internalList.stream()
                 .filter(car -> car.getPrice() < maxPrice)
                 .collect(Collectors.toList());
     }
@@ -36,7 +47,7 @@ public class CarService implements ICarService{
     @Override
     public List<Car> filterCarsByBrand(List<String> brands) {
 
-        return repo.findAll().stream()
+        return internalList.stream()
                 .filter(car -> brands.contains(car.getBrand()))
                 .collect(Collectors.toList());
     }
@@ -44,7 +55,7 @@ public class CarService implements ICarService{
     @Override
     public List<Car> showModelsWithLetter(String letter) {
 
-        return repo.findAll().stream()
+        return internalList.stream()
                 .filter(car -> car.getModel().toLowerCase().contains(letter))
                 .collect(Collectors.toList());
     }
