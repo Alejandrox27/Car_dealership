@@ -1,6 +1,7 @@
 package org.example.Logic;
 
 import org.example.db_cars.CarRepository;
+import org.example.db_cars.connection;
 import org.example.model.Car;
 
 import java.util.Comparator;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CarService implements ICarService{
-    private final CarRepository repo = new CarRepository();
+    private final connection repo = new connection();
 
     @Override
     public void showCarsOrderedByPrice() {

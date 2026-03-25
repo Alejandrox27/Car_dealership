@@ -1,11 +1,13 @@
 package org.example.model;
 
 public class Car {
+    final private int ID;
     final private String BRAND;
     final private String MODEL;
     final private double PRICE;
 
-    public Car (String brand, String model, double price) {
+    public Car (int id, String brand, String model, double price) {
+        this.ID = id;
         this.BRAND = brand;
         this.MODEL = model;
         this.PRICE = price;
